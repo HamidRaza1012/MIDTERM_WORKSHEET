@@ -16,7 +16,7 @@ public class Player {
     public void roll(){
       for(int i=0; i<this.dice.length; i++){
         total+=this.dice[i].roll();
-        System.out.println(total);
+        // System.out.println(total);
       }    
     }
 
@@ -35,15 +35,21 @@ public class Player {
     }
 
     public void cheatroll(){
-      int lower=0;
-      for(int i=0; i<this.dice.length-1; i++){
-        if(this.dice[i].getValue() < this.dice[i+1].getValue()){
+      int lower=0;     
+      for(int i=0; i<this.dice.length; i++){   //[4,2]
+        if(this.dice[i].getValue() < this.dice[lower].getValue()){
           lower=i;
         }
+
       }
 
-       total-=this.dice[lower].getValue();
-       int newVal=this.dice[lower].roll();
+
+      int old=this.dice[lower].getValue();
+       total-=old;
+     int newVal=this.dice[lower].roll();
+    while (newVal <=old){
+      newVal=this.dice[lower].roll();
+    }
        total+=newVal;      
     }
 
@@ -52,10 +58,10 @@ public class Player {
       
       String answer = "Name: " + this.name + " "+"\n"+ "total: " + this.total +
       " "+"\n";
-      for (int i = 0; i < this.dice.length; i++) {
+        for (int i = 0; i < this.dice.length; i++) {
       answer = answer + this.dice[i].getValue()+this.dice[i].getSides();
       answer = answer + "i: "+i +"\t"+ this.dice[i].toString()+"\n";
-      
+        
       }
      return answer;
   
